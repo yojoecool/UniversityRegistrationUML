@@ -1,0 +1,31 @@
+﻿@model IEnumerable<UniversityRegistration.Models.Major>
+
+@{
+    ViewBag.Title = "ChooseMajor";
+}
+
+<h2>ChooseMajor</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.majorName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.majorName)
+        </td>
+        <td>
+            @Html.ActionLink("View Students", "ViewStudents", new { majorName=item.majorName })
+        </td>
+    </tr>
+}
+
+</table>

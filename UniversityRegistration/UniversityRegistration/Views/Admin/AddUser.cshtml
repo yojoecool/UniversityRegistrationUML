@@ -10,7 +10,7 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>User</h4>
         <hr />
@@ -61,6 +61,29 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.phoneNumber, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.phoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.userType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.userType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.userType, "", new { @class = "text-danger" })
+                Note: 1 = Admin, 2 = Professor, 3 = Student, 4 = Advisor
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Major (if applicable)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("Major", "", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Advisor (if applicable)", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Advisor", (IEnumerable<SelectListItem>)ViewBag.Advisors, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 

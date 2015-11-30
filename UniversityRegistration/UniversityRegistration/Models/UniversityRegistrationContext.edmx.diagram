@@ -7,6 +7,10 @@
       <Diagram DiagramId="1eceadc110804417aa48783b8e7f8798" Name="Diagram1" >
         <EntityTypeShape EntityType="UniversityRegistrationContext.User" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="UniversityRegistrationContext.Semester" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="UniversityRegistrationContext.Class" Width="1.5" PointX="3.75" PointY="3.75" />
+        <EntityTypeShape EntityType="UniversityRegistrationContext.Major" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="UniversityRegistrationContext.Student" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="UniversityRegistrationContext.StudentInfo" Width="1.5" PointX="5.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

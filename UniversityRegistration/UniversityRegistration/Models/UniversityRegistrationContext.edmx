@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="UniversityRegistrationContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndTime" Type="time" Precision="7" />
+          <Property Name="SemesterID" Type="int" />
+          <Property Name="MajorID" Type="int" />
+        </EntityType>
+        <EntityType Name="Major">
+          <Key>
+            <PropertyRef Name="majorId" />
+          </Key>
+          <Property Name="majorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="majorName" Type="nchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Semester">
           <Key>
             <PropertyRef Name="Id" />
@@ -13,6 +31,16 @@
           <Property Name="Name" Type="nchar" MaxLength="50" />
           <Property Name="Year" Type="int" />
           <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="creditHours" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="MajorID" Type="int" />
+          <Property Name="AdvisorID" Type="int" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -26,10 +54,38 @@
           <Property Name="Email" Type="nchar" MaxLength="50" />
           <Property Name="phoneNumber" Type="nchar" MaxLength="10" />
           <Property Name="registrationLink" Type="nchar" MaxLength="10" />
+          <Property Name="userType" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITYREGISTRATION\UNIVERSITYREGISTRATION\APP_DATA\UNIVERSITYREGISTRATIONCONTEXT.MDF.dbo.StudentInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="StudentInfo">
+          <Key>
+            
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="Email" Type="nchar" MaxLength="50" />
+          <Property Name="majorName" Type="nchar" MaxLength="50" />
+          <Property Name="majorId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="AdvisorID" Type="int" />
         </EntityType>
         <EntityContainer Name="UniversityRegistrationContextStoreContainer">
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Major" EntityType="Self.Major" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Semester" EntityType="Self.Semester" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentInfo" EntityType="Self.StudentInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [StudentInfo].[Name] AS [Name], 
+    [StudentInfo].[Email] AS [Email], 
+    [StudentInfo].[majorName] AS [majorName], 
+    [StudentInfo].[majorId] AS [majorId], 
+    [StudentInfo].[Id] AS [Id], 
+    [StudentInfo].[AdvisorID] AS [AdvisorID]
+    FROM [dbo].[StudentInfo] AS [StudentInfo]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -38,6 +94,10 @@
         <EntityContainer Name="UniversityRegistrationContextContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="UniversityRegistrationContext.User" />
           <EntitySet Name="Semesters" EntityType="UniversityRegistrationContext.Semester" />
+          <EntitySet Name="Classes" EntityType="UniversityRegistrationContext.Class" />
+          <EntitySet Name="Majors" EntityType="UniversityRegistrationContext.Major" />
+          <EntitySet Name="Students" EntityType="UniversityRegistrationContext.Student" />
+          <EntitySet Name="StudentInfoes" EntityType="UniversityRegistrationContext.StudentInfo" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -51,6 +111,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="phoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="registrationLink" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="userType" Type="Int32" />
         </EntityType>
         <EntityType Name="Semester">
           <Key>
@@ -61,6 +122,45 @@
           <Property Name="Year" Type="Int32" />
           <Property Name="Active" Type="Boolean" />
         </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <Property Name="SemesterID" Type="Int32" />
+          <Property Name="MajorID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Major">
+          <Key>
+            <PropertyRef Name="majorId" />
+          </Key>
+          <Property Name="majorName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="majorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="creditHours" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="MajorID" Type="Int32" />
+          <Property Name="AdvisorID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="StudentInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="majorName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="majorId" Type="Int32" Nullable="false" />
+          <Property Name="AdvisorID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -70,6 +170,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="UniversityRegistrationContext.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="userType" ColumnName="userType" />
                 <ScalarProperty Name="registrationLink" ColumnName="registrationLink" />
                 <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -88,6 +189,49 @@
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="UniversityRegistrationContext.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+                <ScalarProperty Name="SemesterID" ColumnName="SemesterID" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Majors">
+            <EntityTypeMapping TypeName="UniversityRegistrationContext.Major">
+              <MappingFragment StoreEntitySet="Major">
+                <ScalarProperty Name="majorId" ColumnName="majorId" />
+                <ScalarProperty Name="majorName" ColumnName="majorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="UniversityRegistrationContext.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="AdvisorID" ColumnName="AdvisorID" />
+                <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="creditHours" ColumnName="creditHours" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentInfoes">
+            <EntityTypeMapping TypeName="UniversityRegistrationContext.StudentInfo">
+              <MappingFragment StoreEntitySet="StudentInfo">
+                <ScalarProperty Name="AdvisorID" ColumnName="AdvisorID" />
+                <ScalarProperty Name="majorId" ColumnName="majorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="majorName" ColumnName="majorName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

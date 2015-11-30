@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<UniversityRegistration.Models.User>
 
 @{
-    ViewBag.Title = "ChooseUserToEdit";
+    ViewBag.Title = "ChooseAdvisor";
 }
 
-<h2>ChooseUserToEdit</h2>
+<h2>ChooseAdvisor</h2>
 
-<p>
-    @Html.ActionLink("Create New", "AddUser", "Admin")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -28,9 +25,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.phoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.registrationLink)
         </th>
         <th></th>
     </tr>
@@ -56,10 +50,7 @@
             @Html.DisplayFor(modelItem => item.phoneNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.registrationLink)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditUserInfo", new { id=item.Id })
+            @Html.ActionLink("View Students", "ViewStudents", new { AdvisorId=item.Id })
         </td>
     </tr>
 }

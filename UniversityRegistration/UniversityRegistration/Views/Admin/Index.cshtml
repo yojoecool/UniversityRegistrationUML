@@ -21,16 +21,16 @@
     <div class="col-md-4">
         <ul>
             <li>Assign Professor to Class</li>
-            <li>View All Students</li>
+            <li>@Html.ActionLink("View All Students", "ViewStudents", "Admin")</li>
             <li>Set Room for Class</li>
             <li>Set User Status</li>
-            <li>View Students for Advisor</li>
+            <li>@Html.ActionLink("View Students for Advisor", "ChooseAdvisor", "Admin")</li>
             <li>Add User to Class</li>
         </ul>
     </div>
     <div class="col-md-4">
         <ul>
-            <li>View Students in Major</li>
+            <li>@Html.ActionLink("View Students in Major", "ChooseMajor", "Admin")</li>
             <li>Assign Students to Advisor</li>
             <li>Remove Class</li>
             <li>Add Class</li>
