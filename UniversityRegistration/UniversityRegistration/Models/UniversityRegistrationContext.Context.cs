@@ -26,5 +26,6 @@ namespace UniversityRegistration.Models
         }
     
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Semester> Semesters { get; set; }
     }
 }

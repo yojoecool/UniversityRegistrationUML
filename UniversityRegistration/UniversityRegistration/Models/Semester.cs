@@ -12,15 +12,11 @@ namespace UniversityRegistration.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Semester
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Password { get; set; }
-        public string Gender { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public string phoneNumber { get; set; }
-        public string registrationLink { get; set; }
+        public Nullable<int> Year { get; set; }
+        public Nullable<bool> Active { get; set; }
     }
 }
