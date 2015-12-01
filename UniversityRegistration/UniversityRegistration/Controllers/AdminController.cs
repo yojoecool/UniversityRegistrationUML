@@ -38,6 +38,12 @@ namespace UniversityRegistration.Controllers
 
             if (check == null) {
                 input.registrationLink = "";
+                input.Status = false;
+
+                if (input.Gender.ToUpper().StartsWith("M"))
+                    input.Gender = "M";
+                else input.Gender = "F";
+
                 db.Users.Add(input);
 
                 db.SaveChanges();
@@ -151,6 +157,11 @@ namespace UniversityRegistration.Controllers
             user.Gender = input.Gender;
             user.phoneNumber = input.phoneNumber;
             user.Address = input.Address;
+            user.Status = input.Status;
+
+            if (input.Gender.ToUpper().StartsWith("M"))
+                user.Gender = "M";
+            else user.Gender = "F";
 
             if (user.userType == 3)
             {
@@ -282,6 +293,34 @@ namespace UniversityRegistration.Controllers
                                 select m).ToList();
 
             return View(list);
+        }
+
+        public ActionResult ViewEnrollmentInfo()
+        {
+            int males = (from m in db.Users
+                         where m.Gender == "M"
+                         select m).Count();
+            ViewBag.males = males;
+
+            int females = (from m in db.Users
+                           where m.Gender == "F"
+                           select m).Count();
+            ViewBag.females = females;
+
+            List<String> majors = (from m in db.Majors
+                                  select m.majorName).ToList();
+            List<Major> majorList = new List<Major>();
+
+            foreach (String n in majors)
+            {
+                int majorCount = (from m in db.StudentInfoes
+                                    where m.majorName == n
+                                    select m).Count();
+
+                majorList.Add(new Major { majorId = majorCount, majorName = n });
+            }
+
+            return View(majorList);
         }
     }
 }

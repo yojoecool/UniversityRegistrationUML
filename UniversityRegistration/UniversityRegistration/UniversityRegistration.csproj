@@ -304,6 +304,7 @@
     <Content Include="Views\Admin\ViewStudents.cshtml" />
     <Content Include="Views\Admin\ChooseAdvisor.cshtml" />
     <Content Include="Views\Admin\ChooseMajor.cshtml" />
+    <Content Include="Views\Admin\ViewEnrollmentInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

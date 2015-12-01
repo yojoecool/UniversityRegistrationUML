@@ -23,5 +23,6 @@ namespace UniversityRegistration.Models
         public string phoneNumber { get; set; }
         public string registrationLink { get; set; }
         public Nullable<int> userType { get; set; }
+        public Nullable<bool> Status { get; set; }
     }
 }

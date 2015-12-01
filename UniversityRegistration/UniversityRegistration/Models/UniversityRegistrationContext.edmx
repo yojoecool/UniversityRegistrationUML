@@ -57,6 +57,7 @@
           <Property Name="phoneNumber" Type="nchar" MaxLength="10" />
           <Property Name="registrationLink" Type="nchar" MaxLength="10" />
           <Property Name="userType" Type="int" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITYREGISTRATION\UNIVERSITYREGISTRATION\APP_DATA\UNIVERSITYREGISTRATIONCONTEXT.MDF.dbo.StudentInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -114,6 +115,7 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <Property Name="phoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="registrationLink" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="userType" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
         </EntityType>
         <EntityType Name="Semester">
           <Key>
@@ -174,6 +176,7 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="UniversityRegistrationContext.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="userType" ColumnName="userType" />
                 <ScalarProperty Name="registrationLink" ColumnName="registrationLink" />
                 <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />

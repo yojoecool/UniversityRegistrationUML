@@ -1,0 +1,48 @@
+﻿@model IEnumerable<UniversityRegistration.Models.Major>
+
+@{
+    ViewBag.Title = "View Enrollment Info";
+}
+
+<h2>View Enrollment Info</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Males
+        </th>
+        <th>
+            Females
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.Males
+        </td>
+        <td>
+            @ViewBag.Females
+        </td>
+    </tr>
+</table>
+<table class="table">
+
+@foreach (var item in Model) {
+    <tr>
+        <th>
+            Major Name
+        </th>
+        <th>
+            Count
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.majorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.majorId)
+        </td>
+    </tr>
+}
+
+</table>
