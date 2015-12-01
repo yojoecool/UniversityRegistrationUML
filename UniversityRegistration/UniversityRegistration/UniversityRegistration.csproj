@@ -177,6 +177,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Building.cs">
+      <DependentUpon>UniversityRegistrationContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Class.cs">
       <DependentUpon>UniversityRegistrationContext.tt</DependentUpon>
     </Compile>
@@ -185,6 +188,9 @@
       <DependentUpon>UniversityRegistrationContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Room.cs">
+      <DependentUpon>UniversityRegistrationContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Semester.cs">
       <DependentUpon>UniversityRegistrationContext.tt</DependentUpon>
     </Compile>
@@ -305,6 +311,15 @@
     <Content Include="Views\Admin\ChooseAdvisor.cshtml" />
     <Content Include="Views\Admin\ChooseMajor.cshtml" />
     <Content Include="Views\Admin\ViewEnrollmentInfo.cshtml" />
+    <Content Include="Views\Admin\ChooseClass.cshtml" />
+    <Content Include="Views\Admin\AddBuilding.cshtml" />
+    <Content Include="Views\Admin\ChooseBuilding.cshtml" />
+    <Content Include="Views\Admin\AddRoom.cshtml" />
+    <Content Include="Views\Admin\ChooseProfessor.cshtml" />
+    <Content Include="Views\Admin\ChooseBuildingForClass.cshtml" />
+    <Content Include="Views\Admin\ChooseRoomForClass.cshtml" />
+    <Content Include="Views\Admin\AddClass.cshtml" />
+    <Content Include="Views\Admin\ChooseClassToRemove.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

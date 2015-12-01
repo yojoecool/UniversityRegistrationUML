@@ -31,5 +31,7 @@ namespace UniversityRegistration.Models
         public virtual DbSet<Major> Majors { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentInfo> StudentInfoes { get; set; }
+        public virtual DbSet<Building> Buildings { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
     }
 }

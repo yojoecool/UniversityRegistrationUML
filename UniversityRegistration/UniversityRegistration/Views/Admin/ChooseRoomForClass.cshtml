@@ -1,0 +1,31 @@
+﻿@model IEnumerable<UniversityRegistration.Models.Room>
+
+@{
+    ViewBag.Title = "Choose Room For Class";
+}
+
+<h2>Choose Room For Class</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Choose", "SetRoomForClass", new { roomId=item.Id, classId=(int)ViewBag.Class })
+        </td>
+    </tr>
+}
+
+</table>

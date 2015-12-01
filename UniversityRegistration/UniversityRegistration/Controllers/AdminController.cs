@@ -322,5 +322,187 @@ namespace UniversityRegistration.Controllers
 
             return View(majorList);
         }
+
+        public ActionResult ChooseClass()
+        {
+            List<Class> list = (from m in db.Classes
+                                select m).ToList();
+
+            return View(list);
+        }
+
+        public ActionResult AddBuilding()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddBuilding(Building input)
+        {
+            Building check = (from m in db.Buildings
+                              where m.Name == input.Name
+                              select m).FirstOrDefault();
+
+            if (check == null)
+            {
+                db.Buildings.Add(input);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ChooseBuilding()
+        {
+            List<Building> list = new List<Building>();
+
+            list = (from m in db.Buildings
+                    select m).ToList();
+
+            return View(list);
+        }
+
+        public ActionResult AddRoom(int id)
+        {
+            Building building = (from m in db.Buildings
+                                 where m.Id == id
+                                 select m).First();
+
+            Room newRoom = new Room();
+            newRoom.BuildingID = building.Id;
+
+            return View(newRoom);
+        }
+
+        [HttpPost]
+        public ActionResult AddRoom(Room input)
+        {
+            Room check = (from m in db.Rooms
+                          where m.BuildingID == input.BuildingID &&
+                            m.Name == input.Name
+                          select m).FirstOrDefault();
+
+            if (check == null)
+            {
+                db.Rooms.Add(input);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ChooseProfessor(int id)
+        {
+            List<User> list = (from m in db.Users
+                               where m.userType == 2
+                               select m).ToList();
+
+            ViewBag.Class = id;
+
+            return View(list);
+        }
+
+        public ActionResult AssignProfessor(int userId, int classId)
+        {
+            Class editClass = (from m in db.Classes
+                               where m.Id == classId
+                               select m).First();
+
+            editClass.ProfessorID = userId;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ChooseBuildingForClass(int classId)
+        {
+            List<Building> list = (from m in db.Buildings
+                                   select m).ToList();
+
+            ViewBag.Class = classId;
+
+            return View(list);
+        }
+
+        public ActionResult ChooseRoomForClass(int buildingId, int classId)
+        {
+            List<Room> list = (from m in db.Rooms
+                               where m.BuildingID == buildingId
+                               select m).ToList();
+
+            ViewBag.Class = classId;
+
+            return View(list);
+        }
+
+        public ActionResult SetRoomForClass(int roomId, int classId)
+        {
+            Class edit = (from m in db.Classes
+                          where m.Id == classId
+                          select m).First();
+
+            edit.RoomID = roomId;
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AddClass()
+        {
+            List<SelectListItem> majors = (from m in db.Majors
+                                           select new SelectListItem
+                                           {
+                                               Text = m.majorName,
+                                               Value = m.majorId.ToString()
+                                           }).ToList();
+
+            List<SelectListItem> Semesters = (from m in db.Semesters
+                                              select new SelectListItem
+                                              {
+                                                  Text = m.Name + " " + m.Year.ToString(),
+                                                  Value = m.Id.ToString()
+                                              }).ToList();
+
+            ViewBag.majors = majors;
+            ViewBag.semesters = Semesters;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddClass(Class input)
+        {
+            try {
+                db.Classes.Add(input);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ChooseClassToRemove()
+        {
+            List<Class> list = (from m in db.Classes
+                                select m).ToList();
+
+            return View(list);
+        }
+
+        public ActionResult RemoveClass(int id)
+        {
+            Class remove = (from m in db.Classes
+                            where m.Id == id
+                            select m).First();
+
+            db.Classes.Remove(remove);
+
+            db.SaveChanges();
+
+            return RedirectToAction("ChooseClassToRemove");
+        }
     }
 }

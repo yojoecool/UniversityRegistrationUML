@@ -20,9 +20,9 @@
     </div>
     <div class="col-md-4">
         <ul>
-            <li>Assign Professor to Class</li>
+            <li>@Html.ActionLink("Assign Professor to Class", "ChooseClass", "Admin")</li>
             <li>@Html.ActionLink("View All Students", "ViewStudents", "Admin")</li>
-            <li>Set Room for Class</li>
+            <li>@Html.ActionLink("Set Room for Class", "ChooseBuildingForClass", "Admmin")</li>
             <li>@Html.ActionLink("View Students for Advisor", "ChooseAdvisor", "Admin")</li>
             <li>Add User to Class</li>
         </ul>
@@ -31,10 +31,10 @@
         <ul>
             <li>@Html.ActionLink("View Students in Major", "ChooseMajor", "Admin")</li>
             <li>@Html.ActionLink("Assign Students to Advisor", "ViewStudents", "Admin")</li>
-            <li>Remove Class</li>
-            <li>Add Class</li>
-            <li>Add Room</li>
-            <li>Add Building</li>
+            <li>@Html.ActionLink("Remove Class", "ChooseClassToRemove", "Admin")</li>
+            <li>@Html.ActionLink("Add Class", "AddClass", "Admin")</li>
+            <li>@Html.ActionLink("Add Room", "ChooseBuilding", "Admin")</li>
+            <li>@Html.ActionLink("Add Building", "AddBuilding", "Admin")</li>
         </ul>
     </div>
 </div>

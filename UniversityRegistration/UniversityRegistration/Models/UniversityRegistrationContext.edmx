@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="UniversityRegistrationContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Class">
           <Key>
             <PropertyRef Name="Id" />
@@ -24,6 +31,14 @@
           </Key>
           <Property Name="majorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="majorName" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="25" />
+          <Property Name="BuildingID" Type="int" />
         </EntityType>
         <EntityType Name="Semester">
           <Key>
@@ -74,8 +89,10 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <Property Name="AdvisorID" Type="int" />
         </EntityType>
         <EntityContainer Name="UniversityRegistrationContextStoreContainer">
+          <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Major" EntityType="Self.Major" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Semester" EntityType="Self.Semester" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -101,6 +118,8 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <EntitySet Name="Majors" EntityType="UniversityRegistrationContext.Major" />
           <EntitySet Name="Students" EntityType="UniversityRegistrationContext.Student" />
           <EntitySet Name="StudentInfoes" EntityType="UniversityRegistrationContext.StudentInfo" />
+          <EntitySet Name="Buildings" EntityType="UniversityRegistrationContext.Building" />
+          <EntitySet Name="Rooms" EntityType="UniversityRegistrationContext.Room" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -166,6 +185,21 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="majorId" Type="Int32" Nullable="false" />
           <Property Name="AdvisorID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="BuildingID" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -241,6 +275,23 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
                 <ScalarProperty Name="majorName" ColumnName="majorName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buildings">
+            <EntityTypeMapping TypeName="UniversityRegistrationContext.Building">
+              <MappingFragment StoreEntitySet="Building">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="UniversityRegistrationContext.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

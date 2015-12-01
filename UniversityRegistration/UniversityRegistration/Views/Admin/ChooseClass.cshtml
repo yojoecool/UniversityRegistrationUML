@@ -1,0 +1,41 @@
+﻿@model IEnumerable<UniversityRegistration.Models.Class>
+
+@{
+    ViewBag.Title = "Choose Class";
+}
+
+<h2>Choose Class</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.ActionLink("Assign Professor", "ChooseProfessor", new { id=item.Id }) |
+            @Html.ActionLink("Change Room", "ChooseBuildingForClass", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
