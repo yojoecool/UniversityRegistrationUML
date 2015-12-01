@@ -10,9 +10,12 @@
         <EntityTypeShape EntityType="UniversityRegistrationContext.Class" Width="1.5" PointX="3.75" PointY="3.75" />
         <EntityTypeShape EntityType="UniversityRegistrationContext.Major" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="UniversityRegistrationContext.Student" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="UniversityRegistrationContext.StudentInfo" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="UniversityRegistrationContext.StudentInfo" Width="1.5" PointX="7.875" PointY="0.875" />
         <EntityTypeShape EntityType="UniversityRegistrationContext.Building" Width="1.5" PointX="6.75" PointY="6.75" />
         <EntityTypeShape EntityType="UniversityRegistrationContext.Room" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="UniversityRegistrationContext.ClassStudent" Width="1.5" PointX="3.375" PointY="7.75" />
+        <EntityTypeShape EntityType="UniversityRegistrationContext.AddRequest" Width="1.5" PointX="9.375" PointY="4.75" />
+        <EntityTypeShape EntityType="UniversityRegistrationContext.DropRequest" Width="1.5" PointX="5.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="UniversityRegistrationContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AddRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassID" Type="int" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="Processed" Type="bit" />
+        </EntityType>
         <EntityType Name="Building">
           <Key>
             <PropertyRef Name="Id" />
@@ -24,6 +33,23 @@
           <Property Name="MajorID" Type="int" />
           <Property Name="RoomID" Type="int" />
           <Property Name="ProfessorID" Type="int" />
+        </EntityType>
+        <EntityType Name="ClassStudent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassID" Type="int" />
+          <Property Name="StudentID" Type="int" />
+        </EntityType>
+        <EntityType Name="DropRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassID" Type="int" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="Processed" Type="bit" />
         </EntityType>
         <EntityType Name="Major">
           <Key>
@@ -75,7 +101,7 @@
           <Property Name="Status" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITYREGISTRATION\UNIVERSITYREGISTRATION\APP_DATA\UNIVERSITYREGISTRATIONCONTEXT.MDF.dbo.StudentInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'CCB39E58EFEF930D42A46068E03E881E_IONUML\UNIVERSITYREGISTRATION\UNIVERSITYREGISTRATION\APP_DATA\UNIVERSITYREGISTRATIONCONTEXT.MDF.dbo.StudentInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="StudentInfo">
           <Key>
             
@@ -89,8 +115,11 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <Property Name="AdvisorID" Type="int" />
         </EntityType>
         <EntityContainer Name="UniversityRegistrationContextStoreContainer">
+          <EntitySet Name="AddRequest" EntityType="Self.AddRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClassStudent" EntityType="Self.ClassStudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DropRequest" EntityType="Self.DropRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Major" EntityType="Self.Major" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Semester" EntityType="Self.Semester" Schema="dbo" store:Type="Tables" />
@@ -120,6 +149,9 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <EntitySet Name="StudentInfoes" EntityType="UniversityRegistrationContext.StudentInfo" />
           <EntitySet Name="Buildings" EntityType="UniversityRegistrationContext.Building" />
           <EntitySet Name="Rooms" EntityType="UniversityRegistrationContext.Room" />
+          <EntitySet Name="ClassStudents" EntityType="UniversityRegistrationContext.ClassStudent" />
+          <EntitySet Name="AddRequests" EntityType="UniversityRegistrationContext.AddRequest" />
+          <EntitySet Name="DropRequests" EntityType="UniversityRegistrationContext.DropRequest" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -200,6 +232,32 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
           <Property Name="BuildingID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ClassStudent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="StudentID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AddRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="Processed" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DropRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="Processed" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -291,6 +349,35 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
               <MappingFragment StoreEntitySet="Room">
                 <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassStudents">
+            <EntityTypeMapping TypeName="UniversityRegistrationContext.ClassStudent">
+              <MappingFragment StoreEntitySet="ClassStudent">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddRequests">
+            <EntityTypeMapping TypeName="UniversityRegistrationContext.AddRequest">
+              <MappingFragment StoreEntitySet="AddRequest">
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DropRequests">
+            <EntityTypeMapping TypeName="UniversityRegistrationContext.DropRequest">
+              <MappingFragment StoreEntitySet="DropRequest">
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
