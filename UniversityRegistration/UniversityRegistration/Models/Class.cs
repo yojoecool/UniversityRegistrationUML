@@ -20,5 +20,7 @@ namespace UniversityRegistration.Models
         public Nullable<System.TimeSpan> EndTime { get; set; }
         public Nullable<int> SemesterID { get; set; }
         public Nullable<int> MajorID { get; set; }
+        public Nullable<int> RoomID { get; set; }
+        public Nullable<int> ProfessorID { get; set; }
     }
 }

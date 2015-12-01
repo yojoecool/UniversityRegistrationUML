@@ -15,6 +15,8 @@
           <Property Name="EndTime" Type="time" Precision="7" />
           <Property Name="SemesterID" Type="int" />
           <Property Name="MajorID" Type="int" />
+          <Property Name="RoomID" Type="int" />
+          <Property Name="ProfessorID" Type="int" />
         </EntityType>
         <EntityType Name="Major">
           <Key>
@@ -132,6 +134,8 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <Property Name="EndTime" Type="Time" Precision="7" />
           <Property Name="SemesterID" Type="Int32" />
           <Property Name="MajorID" Type="Int32" />
+          <Property Name="RoomID" Type="Int32" />
+          <Property Name="ProfessorID" Type="Int32" />
         </EntityType>
         <EntityType Name="Major">
           <Key>
@@ -195,6 +199,8 @@ warning 6002: The table/view '2ED3C0F5B4C223553B3D1383FFF0EBB5_IONUML\UNIVERSITY
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="UniversityRegistrationContext.Class">
               <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="ProfessorID" ColumnName="ProfessorID" />
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
                 <ScalarProperty Name="MajorID" ColumnName="MajorID" />
                 <ScalarProperty Name="SemesterID" ColumnName="SemesterID" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />

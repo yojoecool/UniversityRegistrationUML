@@ -18,7 +18,7 @@ namespace UniversityRegistration.Controllers
         
         public ActionResult AddUser()
         {
-            List < SelectListItem > advisors  = new List<SelectListItem>();
+            List <SelectListItem> advisors  = new List<SelectListItem>();
             advisors = (from m in db.Users
                                 where m.userType == 4
                                 select new SelectListItem {
@@ -86,18 +86,60 @@ namespace UniversityRegistration.Controllers
             return View(UserList);
         }
 
-        public ActionResult EditUserInfo(int id)
+        public ActionResult EditUserInfo(int id = -1, int studentId = -1)
         {
             Models.User user = new Models.User();
-            user = (from m in db.Users
-                    where m.Id == id
-                    select m).FirstOrDefault();
+            if (id != -1)
+            {
+                user = (from m in db.Users
+                        where m.Id == id
+                        select m).FirstOrDefault();
+            }
+            else if (studentId != -1)
+            {
+                int? userId = (from m in db.Students
+                              where m.Id == studentId
+                              select m.UserID).FirstOrDefault();
+
+                if (userId != null)
+                {
+                    user = (from m in db.Users
+                            where m.Id == userId
+                            select m).FirstOrDefault();
+                }
+            }
+
+            if (user.userType != null && user.userType == 3)
+            {
+                List<SelectListItem> advisors = new List<SelectListItem>();
+                advisors = (from m in db.Users
+                            where m.userType == 4
+                            select new SelectListItem
+                            {
+                                Text = m.Name,
+                                Value = m.Name
+                            }).ToList();
+                ViewBag.Advisors = advisors;
+
+                int? advisorID = (from m in db.StudentInfoes
+                                          where studentId == m.Id
+                                          select m.Id).FirstOrDefault();
+
+                ViewBag.StudentAdvisor = (from m in db.Users
+                                          where m.Id == advisorID &&
+                                            m.userType == 4
+                                          select m.Name).FirstOrDefault();
+
+                ViewBag.Major = (from m in db.StudentInfoes
+                                 where studentId == m.Id
+                                 select m.majorName).FirstOrDefault();
+            }
 
             return View(user);
         }
 
         [HttpPost]
-        public ActionResult EditUserInfo(User input)
+        public ActionResult EditUserInfo(User input, String Major, String Advisor)
         {
             Models.User user = new Models.User();
             user = (from m in db.Users
@@ -109,6 +151,31 @@ namespace UniversityRegistration.Controllers
             user.Gender = input.Gender;
             user.phoneNumber = input.phoneNumber;
             user.Address = input.Address;
+
+            if (user.userType == 3)
+            {
+                Student editStudent = (from m in db.Students
+                                     where m.UserID == user.Id
+                                     select m).First();
+
+                Major = Major.ToUpper();
+
+                int? major = (from m in db.Majors
+                              where m.majorName == Major
+                              select m.majorId).FirstOrDefault();
+
+                if (major != null)
+                    editStudent.MajorID = major.Value;
+
+                if (Advisor != null)
+                {
+                    int advisorId = (from m in db.Users
+                                     where m.Name == Advisor
+                                     select m.Id).FirstOrDefault();
+
+                    editStudent.AdvisorID = advisorId;
+                }
+            }
 
             db.SaveChanges();
 
