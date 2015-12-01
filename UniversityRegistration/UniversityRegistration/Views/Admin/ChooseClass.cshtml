@@ -33,7 +33,7 @@
         </td>
         <td>
             @Html.ActionLink("Assign Professor", "ChooseProfessor", new { id=item.Id }) |
-            @Html.ActionLink("Change Room", "ChooseBuildingForClass", new { id=item.Id })
+            @Html.ActionLink("Change Room", "ChooseBuildingForClass", new { classId=item.Id })
         </td>
     </tr>
 }

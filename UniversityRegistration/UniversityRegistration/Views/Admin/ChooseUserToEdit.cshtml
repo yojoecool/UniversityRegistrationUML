@@ -29,9 +29,6 @@
         <th>
             @Html.DisplayNameFor(model => model.phoneNumber)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.registrationLink)
-        </th>
         <th></th>
     </tr>
 
@@ -54,9 +51,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.phoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.registrationLink)
         </td>
         <td>
             @Html.ActionLink("Edit", "EditUserInfo", new { id=item.Id })

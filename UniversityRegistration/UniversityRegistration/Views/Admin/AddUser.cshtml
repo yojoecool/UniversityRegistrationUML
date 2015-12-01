@@ -76,7 +76,7 @@
         <div class="form-group">
             @Html.Label("Major (if applicable)", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBox("Major", "", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Major", (IEnumerable<SelectListItem>)ViewBag.Majors, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 

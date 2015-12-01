@@ -5,7 +5,6 @@
 <div class="jumbotron">
     <h1>Admin Menu</h1>
     <p class="lead">Choose one of the options below</p>
-    <p class="lead">@ViewBag.Name</p>
 </div>
 
 <div class="row">
@@ -22,7 +21,7 @@
         <ul>
             <li>@Html.ActionLink("Assign Professor to Class", "ChooseClass", "Admin")</li>
             <li>@Html.ActionLink("View All Students", "ViewStudents", "Admin")</li>
-            <li>@Html.ActionLink("Set Room for Class", "ChooseBuildingForClass", "Admmin")</li>
+            <li>@Html.ActionLink("Set Room for Class", "ChooseClass", "Admin")</li>
             <li>@Html.ActionLink("View Students for Advisor", "ChooseAdvisor", "Admin")</li>
             <li>Add User to Class</li>
         </ul>

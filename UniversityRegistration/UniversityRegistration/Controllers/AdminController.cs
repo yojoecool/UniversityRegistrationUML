@@ -9,6 +9,7 @@ namespace UniversityRegistration.Controllers
 {
     public class AdminController : Controller
     {
+        //Note: 1 = Admin, 2 = Professor, 3 = Student, 4 = Advisor
         UniversityRegistrationContextContainer db = new UniversityRegistrationContextContainer();
         // GET: Admin
         public ActionResult Index()
@@ -25,7 +26,17 @@ namespace UniversityRegistration.Controllers
                                     Text = m.Name, 
                                     Value = m.Name
                                 }).ToList();
+            advisors.Insert(0, new SelectListItem { Text = null, Value = null });
             ViewBag.Advisors = advisors;
+
+            List<SelectListItem> majors = (from m in db.Majors
+                                           select new SelectListItem
+                                           {
+                                               Text = m.majorName,
+                                               Value = m.majorName
+                                           }).ToList();
+            majors.Insert(0, new SelectListItem { Text = null, Value = null });
+            ViewBag.Majors = majors;
             return View();
         }
 
@@ -94,6 +105,11 @@ namespace UniversityRegistration.Controllers
 
         public ActionResult EditUserInfo(int id = -1, int studentId = -1)
         {
+            ViewBag.Major = "";
+            ViewBag.StudentAdvisor = "";
+            ViewBag.Majors = new List<SelectListItem>();
+            ViewBag.Advisors = new List<SelectListItem>();
+
             Models.User user = new Models.User();
             if (id != -1)
             {
@@ -117,6 +133,11 @@ namespace UniversityRegistration.Controllers
 
             if (user.userType != null && user.userType == 3)
             {
+                string majorHold = null;
+                ViewBag.Major = majorHold =(from m in db.StudentInfoes
+                                            where studentId == m.Id
+                                            select m.majorName).FirstOrDefault();
+
                 List<SelectListItem> advisors = new List<SelectListItem>();
                 advisors = (from m in db.Users
                             where m.userType == 4
@@ -125,20 +146,26 @@ namespace UniversityRegistration.Controllers
                                 Text = m.Name,
                                 Value = m.Name
                             }).ToList();
+                advisors.Insert(0, new SelectListItem { Text = null, Value = null });
                 ViewBag.Advisors = advisors;
 
+                List<SelectListItem> majors = (from m in db.Majors
+                                               select new SelectListItem
+                                               {
+                                                   Text = m.majorName,
+                                                   Value = m.majorName
+                                               }).ToList();
+                majors.Insert(0, new SelectListItem { Text = null, Value = null });
+                ViewBag.Majors = majors;
+                
                 int? advisorID = (from m in db.StudentInfoes
-                                          where studentId == m.Id
-                                          select m.Id).FirstOrDefault();
+                                  where studentId == m.Id
+                                  select m.Id).FirstOrDefault();
 
                 ViewBag.StudentAdvisor = (from m in db.Users
                                           where m.Id == advisorID &&
                                             m.userType == 4
                                           select m.Name).FirstOrDefault();
-
-                ViewBag.Major = (from m in db.StudentInfoes
-                                 where studentId == m.Id
-                                 select m.majorName).FirstOrDefault();
             }
 
             return View(user);
@@ -154,7 +181,6 @@ namespace UniversityRegistration.Controllers
             user.Name = input.Name;
             user.Password = input.Password;
             user.Email = input.Email;
-            user.Gender = input.Gender;
             user.phoneNumber = input.phoneNumber;
             user.Address = input.Address;
             user.Status = input.Status;
