@@ -335,6 +335,7 @@
     <Content Include="Views\Admin\AddClass.cshtml" />
     <Content Include="Views\Admin\ChooseClassToRemove.cshtml" />
     <Content Include="Views\Professor\ViewStudents.cshtml" />
+    <Content Include="Views\Admin\ChooseStudentForClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

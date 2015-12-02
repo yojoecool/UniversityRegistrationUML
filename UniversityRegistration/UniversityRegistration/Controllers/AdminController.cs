@@ -554,5 +554,35 @@ namespace UniversityRegistration.Controllers
 
             return RedirectToAction("ChooseClassToRemove");
         }
+
+        public ActionResult ChooseStudentForClass(int id)
+        {
+            List<StudentInfo> list = (from m in db.StudentInfoes
+                                  select m).ToList();
+
+            ViewBag.Class = id;
+
+            return View(list);
+        }
+
+        public ActionResult AddStudentToClass(int studentId, int classId)
+        {
+            ClassStudent check = (from m in db.ClassStudents
+                                  where m.ClassID == classId &&
+                                    m.StudentID == studentId
+                                  select m).FirstOrDefault();
+            if (check == null)
+            {
+                ClassStudent add = new ClassStudent();
+                add.ClassID = classId;
+                add.StudentID = studentId;
+
+                db.ClassStudents.Add(add);
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
