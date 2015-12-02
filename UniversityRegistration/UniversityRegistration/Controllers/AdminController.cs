@@ -134,9 +134,42 @@ namespace UniversityRegistration.Controllers
             if (user.userType != null && user.userType == 3)
             {
                 string majorHold = null;
-                ViewBag.Major = majorHold =(from m in db.StudentInfoes
-                                            where studentId == m.Id
-                                            select m.majorName).FirstOrDefault();
+                if (id > 0)
+                {
+                    int? majorID = (from m in db.Students
+                                   where m.UserID == id
+                                   select m.MajorID).FirstOrDefault();
+
+                    majorHold = (from m in db.Majors
+                                 where m.majorId == majorID
+                                 select m.majorName).FirstOrDefault();
+                    
+                    int? advisorID = (from m in db.Students
+                                      where id == m.UserID
+                                      select m.AdvisorID).FirstOrDefault();
+
+                    ViewBag.StudentAdvisor = (from m in db.Users
+                                              where m.Id == advisorID &&
+                                                m.userType == 4
+                                              select m.Name).FirstOrDefault();
+                }
+                else
+                {
+                    majorHold = (from m in db.StudentInfoes
+                                 where studentId == m.Id
+                                 select m.majorName).FirstOrDefault();
+                    
+                    int? advisorID = (from m in db.StudentInfoes
+                                      where studentId == m.Id
+                                      select m.AdvisorID).FirstOrDefault();
+
+                    ViewBag.StudentAdvisor = (from m in db.Users
+                                              where m.Id == advisorID &&
+                                                m.userType == 4
+                                              select m.Name).FirstOrDefault();
+                }
+
+                ViewBag.Major = majorHold;
 
                 List<SelectListItem> advisors = new List<SelectListItem>();
                 advisors = (from m in db.Users
@@ -157,15 +190,6 @@ namespace UniversityRegistration.Controllers
                                                }).ToList();
                 majors.Insert(0, new SelectListItem { Text = null, Value = null });
                 ViewBag.Majors = majors;
-                
-                int? advisorID = (from m in db.StudentInfoes
-                                  where studentId == m.Id
-                                  select m.Id).FirstOrDefault();
-
-                ViewBag.StudentAdvisor = (from m in db.Users
-                                          where m.Id == advisorID &&
-                                            m.userType == 4
-                                          select m.Name).FirstOrDefault();
             }
 
             return View(user);
