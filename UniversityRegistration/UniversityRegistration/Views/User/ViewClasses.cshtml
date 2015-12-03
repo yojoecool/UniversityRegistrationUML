@@ -1,0 +1,24 @@
+﻿@model List<UniversityRegistration.Models.Class>
+
+@{
+    ViewBag.Title = "View Classes";
+}
+
+<h2>View Classes</h2>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.StartTime</td>
+            <td>@item.EndTime</td>
+        </tr>
+    }
+</table>
+

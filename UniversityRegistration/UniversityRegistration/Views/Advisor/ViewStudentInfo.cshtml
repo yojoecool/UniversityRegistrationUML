@@ -1,0 +1,20 @@
+﻿@model UniversityRegistration.Models.StudentInfo
+
+@{
+    ViewBag.Title = "View Student Info";
+}
+
+<h2>View Student Info</h2>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Major Name</th>
+    </tr>
+    <tr>
+        <td>@Model.Name</td>
+        <td>@Model.Email</td>
+        <td>@Model.majorName</td>
+    </tr>
+</table>

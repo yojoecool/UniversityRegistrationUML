@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Add Student To Class";
+}
+
+<h2>Add Student To Class</h2>
+
+@using (Html.BeginForm())
+{
+<div class="form-horizontal">
+    <div class="form-group">
+
+        <div class="col-md-10">
+            Student to Add:
+            <br />
+            @Html.DropDownList("studentId", (SelectList)ViewBag.studentsSL, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+
+        <div class="col-md-10">
+            Class:
+            <br />
+            @Html.DropDownList("classId", (SelectList)ViewBag.classesSl, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <br />
+    <button type="submit">Submit</button>
+</div>
+}

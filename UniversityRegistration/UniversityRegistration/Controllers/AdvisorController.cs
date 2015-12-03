@@ -80,30 +80,34 @@ namespace UniversityRegistration.Controllers
         {
             int id = db.Semesters.FirstOrDefault(m => (bool)m.Active).Id;
             List<Class> classes = db.Classes.Where(m => m.SemesterID == id).ToList();
+            List<int> classSize = new List<int>();
 
             List<ClassStudent> Cstudents = new List<ClassStudent>();
 
             foreach (Class c in classes)
             {
-                Cstudents.AddRange(db.ClassStudents.Where(m => m.ClassID == c.Id));
+                IEnumerable<ClassStudent> these = db.ClassStudents.Where(m => m.ClassID == c.Id);
+                classSize.Add(these.Count());
+                Cstudents.AddRange(these);
             }
 
-            List<Student> students = new List<Student>();
+            List<StudentInfo> students = new List<StudentInfo>();
             foreach (ClassStudent cs in Cstudents)
             {
-                students.Add(db.Students.Find(cs.StudentID));
+                students.Add(db.StudentInfoes.Find(cs.StudentID));
             }
 
             ViewRostersViewModel model = new ViewRostersViewModel();
             model.classes = classes;
             model.students = students;
+            ViewBag.classSize = classSize;
 
             return View(model);
         }
 
         public ActionResult ViewStudents()
         {
-            List<Student> students = db.Students.Where(m => m.AdvisorID == (int)Session["User"]).ToList();
+            List<StudentInfo> students = db.StudentInfoes.Where(m => m.AdvisorID == (int)Session["User"]).ToList();
             return View(students);
         }
 
@@ -115,9 +119,12 @@ namespace UniversityRegistration.Controllers
 
         public ActionResult AddStudentToClass()
         {
-            List<Student> students = db.Students.Where(m => m.AdvisorID == (int)Session["User"]).ToList();
+            List<StudentInfo> students = db.StudentInfoes.Where(m => m.AdvisorID == (int)Session["User"]).ToList();
             int id = db.Semesters.FirstOrDefault(m => (bool)m.Active).Id;
             List<Class> classes = db.Classes.Where(m => m.SemesterID == id).ToList();
+
+            ViewBag.classesSL = new SelectList(classes, "Id", "Name");
+            ViewBag.studentsSL = new SelectList(students, "Id", "Name");
 
             ViewRostersViewModel model = new ViewRostersViewModel();
             model.classes = classes;

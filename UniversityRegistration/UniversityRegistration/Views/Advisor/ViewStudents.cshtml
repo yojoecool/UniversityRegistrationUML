@@ -14,13 +14,13 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.ActionLink(item.Name, "ViewStudentInfo", "Professor", null, new { studentId = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "ViewStudentInfo", "Professor", null, new { studentId = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

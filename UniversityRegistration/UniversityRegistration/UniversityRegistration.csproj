@@ -336,6 +336,18 @@
     <Content Include="Views\Admin\ChooseClassToRemove.cshtml" />
     <Content Include="Views\Professor\ViewStudents.cshtml" />
     <Content Include="Views\Admin\ChooseStudentForClass.cshtml" />
+    <Content Include="Views\Advisor\AddStudentToClass.cshtml" />
+    <Content Include="Views\Advisor\ApproveAddRequest.cshtml" />
+    <Content Include="Views\Advisor\ApproveDropRequest.cshtml" />
+    <Content Include="Views\Advisor\ViewClassRosters.cshtml" />
+    <Content Include="Views\Advisor\ViewStudentInfo.cshtml" />
+    <Content Include="Views\Advisor\ViewStudents.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\SubmitAddRequest.cshtml" />
+    <Content Include="Views\Student\SubmitDropRequest.cshtml" />
+    <Content Include="Views\Student\ViewSchedule.cshtml" />
+    <Content Include="Views\User\LogIn.cshtml" />
+    <Content Include="Views\User\ViewClasses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -347,11 +359,7 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Advisor\" />
-    <Folder Include="Views\Student\" />
-    <Folder Include="Views\User\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

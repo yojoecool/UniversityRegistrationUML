@@ -1,0 +1,26 @@
+﻿model UniversityRegistration.Models.ViewRostersViewModel
+
+@{
+    ViewBag.Title = "View Class Rosters";
+}
+
+<h2>View Class Rosters</h2>
+@{int i = 0; }
+@foreach (var item in Model.classes)
+{
+    int classSize = ViewBag.classSize[i];
+    <table class="table">
+        <tr>
+            <th>@item.Name</th>
+        </tr>
+        @for (int j = 0; j < classSize; j++)
+        {
+            <tr>
+                <td>@Model.students[0].Name</td>
+            </tr>
+
+            Model.students.RemoveAt(0);
+        }
+
+    </table>
+}

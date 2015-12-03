@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Submit Drop Request";
+}
+
+<h2>Submit Drop Request</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.Label("classId", "What class do you want to drop?"):
+                <br />
+                @Html.DropDownList("classId", (SelectList)ViewBag.sl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessage("username", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <button type="submit">Submit</button>
+    </div>
+}
+

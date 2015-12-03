@@ -26,7 +26,36 @@ namespace UniversityRegistration.Controllers
             {
                 Session["Type"] = users.First().userType;
                 Session["User"] = users.First().Id;
-                return RedirectToAction("something");
+
+                // Admins
+                if ((int)Session["User"] == 1)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                // Professors
+                else if ((int)Session["User"] == 2)
+                {
+                    return RedirectToAction("Index", "Professor");
+                }
+
+                // Students
+                else if ((int)Session["User"] == 3)
+                {
+                    return RedirectToAction("Index", "Student");
+                }
+
+                // Advisors
+                else if ((int)Session["User"] == 4)
+                {
+                    return RedirectToAction("Index", "Advisor");
+                }
+                
+                else
+                {
+                    ViewBag.errorMessage = "Something went wrong; please contact your adminstrator.";
+                    return View();
+                }
             }
 
             else

@@ -18,7 +18,7 @@ namespace UniversityRegistration.Controllers
 
         public ActionResult ViewStudents()
         {
-            List<Student> students = new List<Student>();
+            List<StudentInfo> students = new List<StudentInfo>();
             List<Class> classes = db.Classes.Where(m => m.ProfessorID == (int)Session["User"]).ToList();
 
             List<ClassStudent> cs = new List<ClassStudent>();
@@ -29,8 +29,9 @@ namespace UniversityRegistration.Controllers
 
             foreach (ClassStudent it in cs)
             {
-                students.Add(db.Students.Find(it.StudentID));
+                students.Add(db.StudentInfoes.Find(it.StudentID));
             }
+            
 
             return View(students);
         }
@@ -47,19 +48,24 @@ namespace UniversityRegistration.Controllers
             int id = (int)Session["User"];
             List<Class> classes = db.Classes.Where(m => m.ProfessorID == id).ToList();
 
+            List<int> classSize = new List<int>();
+
             List<ClassStudent> Cstudents = new List<ClassStudent>();
             
             foreach (Class c in classes)
             {
-                Cstudents.AddRange(db.ClassStudents.Where(m => m.ClassID == c.Id));
+                IEnumerable<ClassStudent> these = db.ClassStudents.Where(m => m.ClassID == c.Id);
+                classSize.Add(these.Count());
+                Cstudents.AddRange(these);
             }
 
-            List<Student> students = new List<Student>();
+            List<StudentInfo> students = new List<StudentInfo>();
             foreach (ClassStudent cs in Cstudents)
             {
-                students.Add(db.Students.Find(cs.StudentID));
+                students.Add(db.StudentInfoes.Find(cs.StudentID));
             }
 
+            ViewBag.classSize = classSize;
             ViewRostersViewModel model = new ViewRostersViewModel();
             model.classes = classes;
             model.students = students;

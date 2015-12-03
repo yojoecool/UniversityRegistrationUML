@@ -7,7 +7,7 @@ namespace UniversityRegistration.Models
 {
     public class ViewRostersViewModel
     {
-        public List<Student> students { get; set; }
+        public List<StudentInfo> students { get; set; }
         public List<Class> classes { get; set; }
     }
 }

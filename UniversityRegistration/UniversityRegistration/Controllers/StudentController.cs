@@ -64,7 +64,10 @@ namespace UniversityRegistration.Controllers
                 classes.Add(db.Classes.Find(cs.ClassID));
             }
 
-            return View(classes);
+            SelectList sl = new SelectList(classes, "Id", "Name");
+            ViewBag.sl = sl;
+
+            return View();
         }
 
         [HttpPost]
