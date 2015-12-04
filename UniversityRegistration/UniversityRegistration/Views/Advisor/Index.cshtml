@@ -13,10 +13,17 @@
     <div class="col-md-4">
         <ul>
             <li>@Html.ActionLink("View Class Rosters", "ViewClassRosters", "Advisor")</li>
-            <li>@Html.ActionLink("View Students", "ViewStudents", "Advisor")</li>
+            <li>@Html.ActionLink("View My Students", "ViewStudents", "Advisor")</li>
             <li>@Html.ActionLink("Approve Add Request", "ApproveAddRequest", "Advisor")</li>
             <li>@Html.ActionLink("Approve Drop Request", "ApproveDropRequest", "Advisor")</li>
             <li>@Html.ActionLink("Add Student To Class", "AddStudentToClass", "Advisor")</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <ul>
+            <li>@Html.ActionLink("Edit My Info", "EditInfo", "User")</li>
+            <li>@Html.ActionLink("View Classes", "ViewClasses", "User")</li>
+            <li>@Html.ActionLink("View a Schedule", "ViewSchedule", "Advisor")</li>
         </ul>
     </div>
 </div>

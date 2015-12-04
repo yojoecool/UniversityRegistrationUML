@@ -19,7 +19,8 @@ namespace UniversityRegistration.Controllers
         public ActionResult ViewStudents()
         {
             List<StudentInfo> students = new List<StudentInfo>();
-            List<Class> classes = db.Classes.Where(m => m.ProfessorID == (int)Session["User"]).ToList();
+            int num = (int)Session["User"];
+            List<Class> classes = db.Classes.Where(m => m.ProfessorID == num).ToList();
 
             List<ClassStudent> cs = new List<ClassStudent>();
             foreach (Class c in classes)

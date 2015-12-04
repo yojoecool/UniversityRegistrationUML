@@ -16,9 +16,15 @@ namespace UniversityRegistration.Controllers
             return View();
         }
 
-        public ActionResult ViewSchedule()
+        public ActionResult ViewSchedule(int id = 0)
         {
-            List<ClassStudent> classStudents = db.ClassStudents.Where(m => m.StudentID == (int)Session["User"]).ToList();
+            // If there's a paramater it means another user is looking up this person's schedule
+            if (id == 0)
+            {
+                id = (int)Session["User"];
+            }
+
+            List<ClassStudent> classStudents = db.ClassStudents.Where(m => m.StudentID == id).ToList();
 
             List<Class> classes = new List<Class>();
 
@@ -44,7 +50,10 @@ namespace UniversityRegistration.Controllers
         public ActionResult SubmitAddRequest(int classId)
         {
             AddRequest ar = new AddRequest();
-            ar.StudentID = (int)Session["User"];
+            int num = (int)Session["User"];
+            Student student = db.Students.FirstOrDefault(m => m.UserID == num);
+
+            ar.StudentID = student.Id;
             ar.ClassID = classId;
             ar.Processed = false;
 
@@ -56,7 +65,9 @@ namespace UniversityRegistration.Controllers
 
         public ActionResult SubmitDropRequest()
         {
-            List<ClassStudent> classStudents = db.ClassStudents.Where(m => m.StudentID == (int)Session["User"]).ToList();
+            int num = (int)Session["User"];
+            Student student = db.Students.FirstOrDefault(m => m.UserID == num);
+            List<ClassStudent> classStudents = db.ClassStudents.Where(m => m.StudentID == student.Id).ToList();
 
             List<Class> classes = new List<Class>();
             foreach (ClassStudent cs in classStudents)
@@ -74,7 +85,10 @@ namespace UniversityRegistration.Controllers
         public ActionResult SubmitDropRequest(int classId)
         {
             DropRequest dr = new DropRequest();
-            dr.StudentID = (int)Session["User"];
+            int num = (int)Session["User"];
+            Student student = db.Students.FirstOrDefault(m => m.UserID == num);
+
+            dr.StudentID = student.Id;
             dr.ClassID = classId;
             dr.Processed = false;
 

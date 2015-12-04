@@ -60,7 +60,8 @@ namespace UniversityRegistration.Controllers
         public ActionResult ApproveAddRequest()
         {
             List<AddRequest> arqs = db.AddRequests.Where(m => (bool)!m.Processed).ToList();
-            List<Student> students = db.Students.Where(m => m.AdvisorID == (int)Session["User"]).ToList();
+            int num = (int)Session["User"];
+            List<Student> students = db.Students.Where(m => m.AdvisorID == num).ToList();
 
             List<AddRequest> AddRequests = new List<AddRequest>();
             foreach (Student s in students)
@@ -100,6 +101,20 @@ namespace UniversityRegistration.Controllers
             return RedirectToAction("ApproveAddRequest");
         }
 
+        public ActionResult ViewSchedule()
+        {
+            List<StudentInfo> students = db.StudentInfoes.ToList();
+            SelectList sl = new SelectList(students, "Id", "Name");
+
+            return View(sl);
+        }
+
+        [HttpPost]
+        public ActionResult ViewSchedule(int id = 0)
+        {
+            return RedirectToAction("ViewSchedule", "Student", new { id = id });
+        }
+
         public ActionResult ViewClassRosters()
         {
             int id = db.Semesters.FirstOrDefault(m => (bool)m.Active).Id;
@@ -131,7 +146,8 @@ namespace UniversityRegistration.Controllers
 
         public ActionResult ViewStudents()
         {
-            List<StudentInfo> students = db.StudentInfoes.Where(m => m.AdvisorID == (int)Session["User"]).ToList();
+            int num = (int)Session["User"];
+            List<StudentInfo> students = db.StudentInfoes.Where(m => m.AdvisorID == num).ToList();
             return View(students);
         }
 
@@ -143,7 +159,8 @@ namespace UniversityRegistration.Controllers
 
         public ActionResult AddStudentToClass()
         {
-            List<StudentInfo> students = db.StudentInfoes.Where(m => m.AdvisorID == (int)Session["User"]).ToList();
+            int num = (int)Session["User"];
+            List<StudentInfo> students = db.StudentInfoes.Where(m => m.AdvisorID == num).ToList();
             int id = db.Semesters.FirstOrDefault(m => (bool)m.Active).Id;
             List<Class> classes = db.Classes.Where(m => m.SemesterID == id).ToList();
 

@@ -4,7 +4,7 @@
     ViewBag.Title = "View Students";
 }
 
-<h2>View</h2>
+<h2>View Students</h2>
 
 <table class="table">
     <tr>
@@ -18,7 +18,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Name, "ViewStudentInfo", "Professor", null, new { studentId = item.Id })
+                @Html.ActionLink(item.Name, "ViewStudentInfo", "Professor", new { studentId = item.Id }, null)
             </td>
         </tr>
     }

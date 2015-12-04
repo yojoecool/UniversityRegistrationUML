@@ -1,0 +1,15 @@
+﻿@model SelectList
+@{
+    ViewBag.Title = "Approve Drop Request";
+}
+
+<h2>Select a student:</h2>
+
+<br />
+@using (Html.BeginForm())
+{
+    @Html.DropDownList("id", Model, new { @class = "form-control"})
+    <br />
+    <button type="submit">Submit</button>
+}
+

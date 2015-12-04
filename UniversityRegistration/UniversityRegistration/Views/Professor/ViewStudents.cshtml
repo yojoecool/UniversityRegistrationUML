@@ -18,7 +18,7 @@
 {
     <tr>
         <td>
-            @Html.ActionLink(item.Name, "ViewStudentInfo", "Professor", null, new { studentId = item.Id })
+            @Html.ActionLink(item.Name, "ViewStudentInfo", "Professor", new { studentId = item.Id }, null)
         </td>
     </tr>
 }

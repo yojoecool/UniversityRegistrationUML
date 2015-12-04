@@ -584,5 +584,19 @@ namespace UniversityRegistration.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult ViewSchedule()
+        {
+            List<StudentInfo> students = db.StudentInfoes.ToList();
+            SelectList sl = new SelectList(students, "Id", "Name");
+
+            return View(sl);
+        }
+
+        [HttpPost]
+        public ActionResult ViewSchedule(int id = 0)
+        {
+            return RedirectToAction("ViewSchedule", "Student", new { id = id });
+        }
     }
 }
