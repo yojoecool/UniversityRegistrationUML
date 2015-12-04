@@ -1,0 +1,64 @@
+﻿@model UniversityRegistration.Models.User
+@{
+    ViewBag.Title = "Log In";
+}
+
+<h2>Log In</h2>
+@ViewBag.errorMessage
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("User.Id", Model.Id)
+    @Html.Hidden("User.registrationLink", Model.registrationLink)
+    @Html.Hidden("User.Status", Model.Status)
+    @Html.Hidden("User.userType", Model.userType)
+    <div class="form-horizontal">
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.Label("User.Email", "Email"):
+                <br />
+                @Html.TextBox("User.Email", Model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessage("User.Email", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.Label("User.Address", "Address"):
+                <br />
+                @Html.TextBox("User.Address", Model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessage("User.Address", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.Label("User.Gender", "Gender"):
+                <br />
+                @Html.TextBox("User.Gender", Model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessage("User.Gender", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.Label("User.phoneNumber", "Phone Number"):
+                <br />
+                @Html.TextBox("User.phoneNumber", Model.phoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessage("User.phoneNumber", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.Label("User.Name", "Name"):
+                <br />
+                @Html.TextBox("User.Name", Model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessage("User.Name", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <button type="submit">Submit</button>
+    </div>
+}

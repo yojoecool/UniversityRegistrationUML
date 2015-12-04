@@ -1,7 +1,21 @@
-﻿
+﻿@model Dictionary<string, int>
 @{
-    ViewBag.Title = "ApproveAddRequest";
+    ViewBag.Title = "Approve Add Request";
 }
 
-<h2>ApproveAddRequest</h2>
+<h2>Approve Add Request</h2>
 
+<br />
+@using (Html.BeginForm())
+{
+    <select class="form-control" id="id" name="id">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Value">
+                @item.Key
+            </option>
+        }
+    </select>
+    <br />
+    <button type="submit">Submit</button>
+}

@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @if ((string)Session["Type"] == "Admin")
+                    @if (Session["Type"] != null && (int)Session["Type"] == 1)
                     {
                         <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                     }

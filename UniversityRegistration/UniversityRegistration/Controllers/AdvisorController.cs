@@ -20,7 +20,8 @@ namespace UniversityRegistration.Controllers
         public ActionResult ApproveDropRequest()
         {
             List<DropRequest> drqs = db.DropRequests.Where(m => (bool)!m.Processed).ToList();
-            List<Student> students = db.Students.Where(m => m.AdvisorID == (int)Session["User"]).ToList();
+            int id = (int)Session["User"];
+            List<Student> students = db.Students.Where(m => m.AdvisorID == id).ToList();
 
             List<DropRequest> dropRequests = new List<DropRequest>();
             foreach (Student s in students)
@@ -28,7 +29,18 @@ namespace UniversityRegistration.Controllers
                 dropRequests.AddRange(drqs.Where(m => m.StudentID == s.Id));
             }
 
-            return View(dropRequests);
+            Dictionary<string, int> list = new Dictionary<string, int>();
+
+            foreach (DropRequest dr in dropRequests)
+            {
+                StudentInfo student = db.StudentInfoes.Find(dr.StudentID);
+                Class c = db.Classes.Find(dr.ClassID);
+
+                string message = "Drop " + student.Name + " from " + c.Name;
+                list.Add(message, dr.Id);
+            }
+            
+            return View(list);
         }
 
         [HttpPost]
@@ -56,7 +68,19 @@ namespace UniversityRegistration.Controllers
                 AddRequests.AddRange(arqs.Where(m => m.StudentID == s.Id));
             }
 
-            return View(AddRequests);
+            Dictionary<string, int> list = new Dictionary<string, int>();
+
+            foreach (AddRequest ar in AddRequests)
+            {
+                StudentInfo student = db.StudentInfoes.Find(ar.StudentID);
+                Class c = db.Classes.Find(ar.ClassID);
+
+                string message = "Add " + student.Name + " to " + c.Name;
+                list.Add(message, ar.Id);
+            }
+
+            return View(list);
+            
         }
 
         [HttpPost]

@@ -28,25 +28,25 @@ namespace UniversityRegistration.Controllers
                 Session["User"] = users.First().Id;
 
                 // Admins
-                if ((int)Session["User"] == 1)
+                if ((int)Session["Type"] == 1)
                 {
                     return RedirectToAction("Index", "Admin");
                 }
 
                 // Professors
-                else if ((int)Session["User"] == 2)
+                else if ((int)Session["Type"] == 2)
                 {
                     return RedirectToAction("Index", "Professor");
                 }
 
                 // Students
-                else if ((int)Session["User"] == 3)
+                else if ((int)Session["Type"] == 3)
                 {
                     return RedirectToAction("Index", "Student");
                 }
 
                 // Advisors
-                else if ((int)Session["User"] == 4)
+                else if ((int)Session["Type"] == 4)
                 {
                     return RedirectToAction("Index", "Advisor");
                 }
@@ -86,7 +86,35 @@ namespace UniversityRegistration.Controllers
                 db.SaveChanges();
 
                 // Come back and send them to the appropriate menu
-                return RedirectToAction("");
+                // Admins
+                if ((int)Session["Type"] == 1)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                // Professors
+                else if ((int)Session["Type"] == 2)
+                {
+                    return RedirectToAction("Index", "Professor");
+                }
+
+                // Students
+                else if ((int)Session["Type"] == 3)
+                {
+                    return RedirectToAction("Index", "Student");
+                }
+
+                // Advisors
+                else if ((int)Session["Type"] == 4)
+                {
+                    return RedirectToAction("Index", "Advisor");
+                }
+
+                else
+                {
+                    ViewBag.errorMessage = "Something went wrong; please contact your adminstrator.";
+                    return View();
+                }
             }
 
             else
@@ -95,9 +123,9 @@ namespace UniversityRegistration.Controllers
             }
         }
 
-        public ActionResult RegisterForSystem()
+        public ActionResult RegisterForSystem(int userId)
         {
-            User thisUser = db.Users.Find(Session["User"]);
+            User thisUser = db.Users.Find(userId);
             return View(thisUser);
         }
 
@@ -110,7 +138,35 @@ namespace UniversityRegistration.Controllers
                 db.SaveChanges();
 
                 // Come back and send them to the appropriate menu
-                return RedirectToAction("");
+                // Admins
+                if ((int)Session["Type"] == 1)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                // Professors
+                else if ((int)Session["Type"] == 2)
+                {
+                    return RedirectToAction("Index", "Professor");
+                }
+
+                // Students
+                else if ((int)Session["Type"] == 3)
+                {
+                    return RedirectToAction("Index", "Student");
+                }
+
+                // Advisors
+                else if ((int)Session["Type"] == 4)
+                {
+                    return RedirectToAction("Index", "Advisor");
+                }
+
+                else
+                {
+                    ViewBag.errorMessage = "Something went wrong; please contact your adminstrator.";
+                    return View();
+                }
             }
 
             else

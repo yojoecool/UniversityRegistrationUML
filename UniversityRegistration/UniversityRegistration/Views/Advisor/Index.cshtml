@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Advisor Menu";
+}
+
+<div class="jumbotron">
+    <h1>Advisor Menu</h1>
+    <p class="lead">Choose one of the options below</p>
+    <p class="lead">@ViewBag.Name</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <ul>
+            <li>@Html.ActionLink("View Class Rosters", "ViewClassRosters", "Advisor")</li>
+            <li>@Html.ActionLink("View Students", "ViewStudents", "Advisor")</li>
+            <li>@Html.ActionLink("Approve Add Request", "ApproveAddRequest", "Advisor")</li>
+            <li>@Html.ActionLink("Approve Drop Request", "ApproveDropRequest", "Advisor")</li>
+            <li>@Html.ActionLink("Add Student To Class", "AddStudentToClass", "Advisor")</li>
+        </ul>
+    </div>
+</div>
