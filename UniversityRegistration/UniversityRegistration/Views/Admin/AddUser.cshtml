@@ -5,7 +5,11 @@
 }
 
 <h2>Add User</h2>
+<h3 style="color: red;">@TempData["error"]</h3>
 
+@{ 
+    TempData["error"] = null;
+}
 
 @using (Html.BeginForm()) 
 {

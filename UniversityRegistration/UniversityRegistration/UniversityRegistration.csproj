@@ -348,7 +348,6 @@
     <Content Include="Views\Student\ViewSchedule.cshtml" />
     <Content Include="Views\User\LogIn.cshtml" />
     <Content Include="Views\User\ViewClasses.cshtml" />
-    <Content Include="Views\User\EditInfo.cshtml" />
     <Content Include="Views\User\RegisterForSystem.cshtml" />
     <Content Include="Views\Professor\ViewClassRosters.cshtml" />
     <Content Include="Views\Professor\ViewStudentInfo.cshtml" />
@@ -356,6 +355,7 @@
     <Content Include="Views\Advisor\Index.cshtml" />
     <Content Include="Views\Advisor\ViewSchedule.cshtml" />
     <Content Include="Views\Admin\ViewSchedule.cshtml" />
+    <Content Include="Views\User\EditInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

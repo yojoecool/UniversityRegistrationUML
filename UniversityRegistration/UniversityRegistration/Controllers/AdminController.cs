@@ -47,11 +47,11 @@ namespace UniversityRegistration.Controllers
                           where m.Email == input.Email
                           select m).FirstOrDefault();
 
-            if (check == null) {
+            if (check == null && input.Email != null) {
                 input.registrationLink = "";
                 input.Status = false;
 
-                if (input.Gender.ToUpper().StartsWith("M"))
+                if (input.Gender != null && input.Gender.ToUpper().StartsWith("M"))
                     input.Gender = "M";
                 else input.Gender = "F";
 
@@ -89,6 +89,11 @@ namespace UniversityRegistration.Controllers
                 }
 
                 db.SaveChanges();
+            }
+            else
+            {
+                TempData["error"] = "User exists or email is invalid. Please try again.";
+                return RedirectToAction("AddUser");
             }
 
             return RedirectToAction("Index");
@@ -198,15 +203,20 @@ namespace UniversityRegistration.Controllers
         [HttpPost]
         public ActionResult EditUserInfo(User input, String Major, String Advisor)
         {
+            if (input.Email == null)
+            {
+                TempData["error"] = "Invalid email. Please try again";
+                return RedirectToAction("Index");
+            }
             Models.User user = new Models.User();
             user = (from m in db.Users
                     where m.Id == input.Id
                     select m).First();
-            user.Name = input.Name;
-            user.Password = input.Password;
-            user.Email = input.Email;
-            user.phoneNumber = input.phoneNumber;
-            user.Address = input.Address;
+            user.Name = input.Name.Trim();
+            user.Password = input.Password.Trim();
+            user.Email = input.Email.Trim();
+            user.phoneNumber = input.phoneNumber.Trim();
+            user.Address = input.Address.Trim();
             user.Status = input.Status;
 
             if (input.Gender.ToUpper().StartsWith("M"))
@@ -260,6 +270,12 @@ namespace UniversityRegistration.Controllers
                               select m).FirstOrDefault();
             if (check == null)
                 db.Semesters.Add(input);
+
+            else
+            {
+                ViewBag.error = "Semester already exists.";
+                return View();
+            }
 
             db.SaveChanges();
 
@@ -399,6 +415,11 @@ namespace UniversityRegistration.Controllers
                 db.SaveChanges();
             }
 
+            else
+            {
+                ViewBag.error = "Building already exists.";
+                return View();
+            }
             return RedirectToAction("Index");
         }
 
@@ -436,6 +457,12 @@ namespace UniversityRegistration.Controllers
             {
                 db.Rooms.Add(input);
                 db.SaveChanges();
+            }
+
+            else
+            {
+                ViewBag.error = "Room already exists in this building.";
+                return View();
             }
 
             return RedirectToAction("Index");
@@ -549,6 +576,15 @@ namespace UniversityRegistration.Controllers
                             select m).First();
 
             db.Classes.Remove(remove);
+
+            List<ClassStudent> entries = (from m in db.ClassStudents
+                                          where m.ClassID == id
+                                          select m).ToList();
+
+            foreach (ClassStudent n in entries)
+            {
+                db.ClassStudents.Remove(n);
+            }
 
             db.SaveChanges();
 

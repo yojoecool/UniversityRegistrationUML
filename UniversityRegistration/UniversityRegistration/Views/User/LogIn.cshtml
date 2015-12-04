@@ -23,7 +23,7 @@
             <div class="col-md-10">
             @Html.Label("password", "Password"):
                 <br />
-                @Html.TextBox("password", null, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Password("password", null, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessage("password", new { @class = "text-danger" })
             </div>
         </div>

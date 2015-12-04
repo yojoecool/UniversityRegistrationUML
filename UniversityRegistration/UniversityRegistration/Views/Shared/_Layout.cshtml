@@ -26,6 +26,18 @@
                     {
                         <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                     }
+                    @if (Session["Type"] != null && (int)Session["Type"] == 4)
+                    {
+                        <li>@Html.ActionLink("Advisor", "Index", "Advisor")</li>
+                    }
+                    @if (Session["Type"] != null && (int)Session["Type"] == 3)
+                    {
+                        <li>@Html.ActionLink("Student", "Index", "Student")</li>
+                    }
+                    @if (Session["Type"] != null && (int)Session["Type"] == 2)
+                    {
+                        <li>@Html.ActionLink("Professor", "Index", "Professor")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

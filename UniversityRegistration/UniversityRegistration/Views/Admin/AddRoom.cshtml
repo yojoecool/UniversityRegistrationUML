@@ -1,10 +1,11 @@
 ﻿@model UniversityRegistration.Models.Room
 
 @{
-    ViewBag.Title = "AddRoom";
+    ViewBag.Title = "Add Room";
 }
 
-<h2>AddRoom</h2>
+<h2>Add Room</h2>
+<h3 style="color: red;">@ViewBag.error</h3>
 
 
 @using (Html.BeginForm()) 

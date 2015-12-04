@@ -82,9 +82,15 @@ namespace UniversityRegistration.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Name = user.Name.Trim();
+                user.Address = user.Address.Trim();
+                user.Email = user.Email.Trim();
+                user.Gender = user.Gender.Trim();
+                user.Password = user.Password.Trim();
+                user.phoneNumber = user.phoneNumber.Trim();
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-
+                
                 // Come back and send them to the appropriate menu
                 // Admins
                 if ((int)Session["Type"] == 1)
@@ -136,6 +142,9 @@ namespace UniversityRegistration.Controllers
             {
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+
+                Session["Type"] = user.userType;
+                Session["User"] = user.Id;
 
                 // Come back and send them to the appropriate menu
                 // Admins
