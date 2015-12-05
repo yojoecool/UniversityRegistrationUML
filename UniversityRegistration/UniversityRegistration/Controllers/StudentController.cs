@@ -24,7 +24,11 @@ namespace UniversityRegistration.Controllers
                 id = (int)Session["User"];
             }
 
-            List<ClassStudent> classStudents = db.ClassStudents.Where(m => m.StudentID == id).ToList();
+            int studentID = (from m in db.Students
+                             where m.UserID == id
+                             select m.Id).First();
+
+            List<ClassStudent> classStudents = db.ClassStudents.Where(m => m.StudentID == studentID).ToList();
 
             List<Class> classes = new List<Class>();
 
